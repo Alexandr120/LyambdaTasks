@@ -1,0 +1,12 @@
+{
+  "name": "LyambdaTasks",
+  "version": "1.0.0",
+  "dependencies": {
+    "csv-parse": "^5.1.0",
+    "csv-stringify": "^6.1.0",
+    "csv-write-stream": "^2.0.0",
+    "inquirer": "^8.2.4",
+    "json2csv": "^5.0.7",
+    "papaparse": "^5.3.2"
+  }
+}
