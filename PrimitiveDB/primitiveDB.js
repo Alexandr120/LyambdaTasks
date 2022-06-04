@@ -1,10 +1,8 @@
 let inquirer = require('inquirer');
 let fs = require('fs');
-let papa = require('papaparse');
 let userData = {};
 
-function run()
-{
+const run = () => {
     userData = {};
     inquirer.prompt([{
             type: 'input',
@@ -26,8 +24,7 @@ function run()
     });
 }
 
-function next()
-{
+const next = () =>{
     inquirer.prompt([{
             type: 'list',
             name: 'gender',
@@ -57,8 +54,7 @@ function next()
     });
 }
 
-function setDataToDb()
-{
+const setDataToDb = () => {
     let string = `${userData.user},${userData.gender},${userData.age}`;
     fs.stat(__dirname+'/db.csv', function (err, stat){
         if(err == null){
@@ -71,8 +67,7 @@ function setDataToDb()
     })
 }
 
-function tellShowUsersList()
-{
+const tellShowUsersList = () => {
     inquirer.prompt([{
         type: 'confirm',
         name: 'list',
@@ -80,7 +75,6 @@ function tellShowUsersList()
         default: false
     }]).then((answers) => {
         if(answers.list){
-            // fs.createReadStream(__dirname+'/db.csv').pipe(getParser());
             console.log(getParser());
             setTimeout(function () {
                 tellEnterUserName();
@@ -90,8 +84,7 @@ function tellShowUsersList()
     });
 }
 
-function tellEnterUserName()
-{
+const tellEnterUserName = () => {
     inquirer.prompt([{
         type: 'input',
         name: 'user',
@@ -107,13 +100,22 @@ function tellEnterUserName()
     });
 }
 
-function getParser()
-{
-    return papa.parse(fs.readFileSync(__dirname+'/db.csv', {encoding:'utf8', flag:'r'}).trim(), {header: true}).data;
+const getParser = () => {
+    let result = [];
+    let strArr = fs.readFileSync(__dirname+'/db.csv', {encoding:'utf8', flag:'r'}).trim().split('\n');
+    let headers = strArr[0].split(',');
+    for(let i=1; i<strArr.length; i++){
+        let userDataArray = strArr[i].split(',');
+        let obj = {};
+        for(let j=0; j<userDataArray.length; j++){
+            obj[headers[j]] = userDataArray[j];
+        }
+        result.push(obj);
+    }
+    return result;
 }
 
-function getUserByName(name)
-{
+const getUserByName = (name) => {
     let csv = getParser();
     let result = csv.filter(row => row.user === name)
     if(result.length === 0){

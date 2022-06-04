@@ -2,87 +2,82 @@ const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
 })
+let string = '';
+let strArray = '';
 
 run();
 
 function run()
 {
     readline.question("Hello! Enter 10 words or digits deviding them in space:", (str) => {
+        string = str;
+        strArray = str.trim().split(' ');
         let questions = 'How would you like to sort values?\n' +
             '1. Sort words alphabetically. \n' +
             '2. Display numbers from smallest to largest\n' +
             '3. Display numbers from highest to lowest\n' +
             '4. Display words in ascending order by number of letters in words\n' +
             '5. Show only selected words\n' +
+            '6. Show unique value from string\n' +
             'To exit the program, it is enough to type `exit` in case the program will repeat itself over and over again, requesting new data and sorting sources.\n';
         console.log('you entered: '+ str);
         console.log(questions);
-        askQuestion(str.trim());
+        askQuestion();
     })
 }
-
-function askQuestion(str)
-{
+const askQuestion = () => {
     readline.question("Select (1 - 5) and press Enter: ", (select) => {
-        let array = ['1', '2', '3', '4', '5'];
+        let array = ['1', '2', '3', '4', '5', '6'];
         if(array.indexOf(select) !== -1){
             switch(select) {
                 case '1':
-                    console.log(strSplit(str).sort());
+                    console.log(strArray.sort());
                     break;
                 case '2':
-                    console.log(sortNumbers(getNumArray(str), 'min'));
+                    console.log(sortNumbers(getNumArray(), 'min'));
                     break;
                 case '3':
-                    console.log(sortNumbers(getNumArray(str), 'max'));
+                    console.log(sortNumbers(getNumArray(), 'max'));
                     break;
                 case '4':
-                    console.log(sortWordsOfLetters(str));
+                    console.log(sortWordsOfLetters());
                     break;
                 case '5':
-                    console.log(strSplit(str).filter(onlyUnique));
+                    console.log(showUniqueWords());
+                    break;
+                case '6':
+                    console.log(strArray.filter(onlyUnique));
                     break;
                 default:
                 // code block
             }
-            run(str);
+            run();
         } else if(select === 'exit') {
             readline.close();
         } else {
             console.log('incorrect select! Try again');
-            askQuestion(str);
+            askQuestion();
         }
-    })
+    });
 }
-
-function strSplit(str)
-{
-    return str.split(' ');
-}
-
-function getNumArray(string)
-{
+const getNumArray = () => {
     let resultArray = [];
-    let strArray = strSplit(string);
     for(let key in strArray){
-        let num = strArray[key].match(/\d+/);
-        if(num !== null){
-            resultArray.push(parseInt(num));
+        if(!isNaN(strArray[key])){
+            resultArray.push(strArray[key]);
         }
     }
     return resultArray;
 }
 
-function sortNumbers(numArray, first){
+const sortNumbers = (numArray, first) => {
     numArray.sort(function (a, b){
         return (first === 'min')? a-b : b-a;
     });
     return numArray;
 }
 
-function sortWordsOfLetters(string)
-{
-   let strArray = strSplit(string);
+const sortWordsOfLetters = () => {
     strArray.sort(function (a, b) {
         if (a.length < b.length) {
             return -1;
@@ -95,7 +90,16 @@ function sortWordsOfLetters(string)
     return strArray;
 }
 
-function onlyUnique(value, index, self)
-{
+const showUniqueWords = () => {
+    let resultArray = [];
+    for(let key in strArray){
+        if(isNaN(strArray[key])){
+            resultArray.push(strArray[key]);
+        }
+    }
+    return resultArray.filter(onlyUnique);
+}
+
+const onlyUnique = (value, index, self) => {
     return self.indexOf(value) === index;
 }
