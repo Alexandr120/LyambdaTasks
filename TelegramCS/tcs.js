@@ -8,7 +8,7 @@ program.version('0.0.1');
 
 program
     .command('message')
-    .description('Send message to Telegramm Bot.')
+    .description('Send message to Telegram Bot.')
     .argument('<message>', 'message text')
     .alias('m')
     .action(function (message){
@@ -22,7 +22,7 @@ program
 
 program
     .command('photo')
-    .description('Send photo to Telegramm Bot. Just drag and drop it console after p-flag')
+    .description('Send photo to Telegram Bot. Just drag and drop it console after p-flag')
     .argument('<path>', 'file path')
     .alias('p')
     .action(function (path){

@@ -2,6 +2,7 @@
   "name": "LyambdaTasks",
   "version": "1.0.0",
   "dependencies": {
+    "axios": "^0.27.2",
     "commander": "^9.3.0",
     "csv-parse": "^5.1.0",
     "csv-stringify": "^6.1.0",
