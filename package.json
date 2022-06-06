@@ -2,7 +2,7 @@
   "name": "LyambdaTasks",
   "version": "1.0.0",
   "main": "./TelegramBot/bot.js",
-  "script": {
+  "scripts": {
     "start": "node ./TelegramBot/bot.js"
   },
 
