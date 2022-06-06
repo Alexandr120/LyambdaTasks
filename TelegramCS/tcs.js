@@ -1,8 +1,5 @@
-require('dotenv').config();
+const tg = require('../TelegramBot/bot.js') ;
 const program = require('commander');
-const TelegramBot = require("node-telegram-bot-api");
-const bot = new TelegramBot(getTgToken(), {polling: true});
-let chatId = '474773157'; // my chat id
 
 program.version('0.0.1');
 
@@ -13,7 +10,7 @@ program
     .alias('m')
     .action(function (message){
         console.log(message);
-            bot.sendMessage(chatId, message);
+            tg.bot.sendMessage(tg.chatId, message);
             setTimeout(function (){
                 process.exit();
             }, 200);
@@ -26,15 +23,10 @@ program
     .argument('<path>', 'file path')
     .alias('p')
     .action(function (path){
-        bot.sendPhoto(chatId, path);
+        tg.bot.sendPhoto(tg.chatId, path);
         setTimeout(function (){
             process.exit();
         }, 200);
     })
 
 program.parse(process.argv);
-
-function getTgToken()
-{
-    return process.env.TG_TOKEN;
-}
