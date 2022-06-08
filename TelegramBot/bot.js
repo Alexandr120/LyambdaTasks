@@ -10,13 +10,11 @@ bot.onText(/\/start/, (msg) => {
     sendMenuList(msg.chat.id);
 });
 
-bot.onText(/\/stop/, (msg) => {
-    bot.sendMessage(msg.chat.id, 'Unrecognized command. Say what?');
-});
-
-bot.on('message', (msg) => {
-    bot.sendMessage(msg.chat.id, 'Sorry, I won\'t answer you =(. You can choose a command from the list.');
-    sendMenuList(msg.chat.id);
+bot.on('message', (msg) => {console.log(msg.text);
+    if(!commands.hasOwnProperty(`${msg.text}`)){
+        bot.sendMessage(msg.chat.id, 'Unrecognized command. Say what?');
+        sendMenuList(msg.chat.id);
+    }
 });
 
 const sendMenuList = (chatId) => {
