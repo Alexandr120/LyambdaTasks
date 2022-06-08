@@ -3,19 +3,19 @@ const TelegramBot = require("node-telegram-bot-api");
 const axios = require('axios').default;
 const bot = new TelegramBot(process.env.TG_TOKEN, {polling: true})
 const weather = require('../TelegramBot/weather.js');
-let chatId = '474773157'; // my chat id
-let commands = require('../TelegramBot/menuList.json');
+const chatId = '474773157'; // my chat id
+const commands = require('../TelegramBot/menuList.json');
 
 bot.onText(/\/start/, (msg) => {
     sendMenuList(msg.chat.id);
 });
 
-bot.on('message', (msg) => {
-    if(!commands.hasOwnProperty(`${msg.text}`)){
-        bot.sendMessage(msg.chat.id, 'Unrecognized command. Say what?');
-        sendMenuList(msg.chat.id);
-    }
-});
+// bot.on('message', (msg) => {
+//     if(!commands.hasOwnProperty(`${msg.text}`)){
+//         bot.sendMessage(msg.chat.id, 'Unrecognized command. Say what?');
+//         sendMenuList(msg.chat.id);
+//     }
+// });
 
 const sendMenuList = (chatId) => {
     let menuList = 'Choose what you would like to know?\n';
@@ -53,4 +53,4 @@ bot.on('callback_query', onCallbackQuery = (query) => {
     }
 });
 
-module.exports = { bot, axios };
+module.exports = { bot, axios, commands, chatId };
