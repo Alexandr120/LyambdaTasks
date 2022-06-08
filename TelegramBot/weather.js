@@ -4,19 +4,22 @@ const weekdays = require('../TelegramBot/weekdays.json');
 const months = require('../TelegramBot/months.json');
 
 const getWeather = async (hourOption) => {
-  let weatherData = await getWeatherData(hourOption);
+  let weatherData = await getWeatherData();
   let result = '';
     for (let [key, item] of weatherData) {
         result = result + `${key} \n`;
-        for (let k in item){
-            result = result + `   ${item[k].time}, ${item[k].temp}, ощущается: ${item[k].feel_like}, ${item[k].weather} \n`
+        for(let i=0; i<item.length; i++){
+            if(hourOption === '6' && i !== 0 && i !== item.length-1){
+                i++;
+            }
+            result = result + `   ${item[i].time}, ${item[i].temp}, ощущается: ${item[i].feel_like}, ${item[i].weather} \n`
         }
     }
   return result;
 }
 
 
-const getWeatherData = async (hourOption) => {
+const getWeatherData = async () => {
     let weatherData = false;
     let cityCoordinates = await getCityCoordinates(); // I can try search coordinates for target city
     if(cityCoordinates){
@@ -31,7 +34,7 @@ const getWeatherData = async (hourOption) => {
         }).then((response) => {
             if(response.status === 200){
                 let list = response.data.list;
-                weatherData = weatherMapper(list, hourOption);
+                weatherData = weatherMapper(list);
             }
         }).catch((err)=>{
             console.log(err);
@@ -40,15 +43,11 @@ const getWeatherData = async (hourOption) => {
     }
 }
 
-const weatherMapper = (data, option) => {
+const weatherMapper = (data) => {
     let arr = new Map([]);
-    for (let i=0; i<data.length-1; i++){
-        if(option === '6'){
-            i++;
-            if(i === data.length-1){
-                i--;
-            }
-        }
+    console.log(data);
+
+    for (let i=0; i<data.length; i++){
         let dateTime = new Date(data[i].dt_txt);
         // let date = dateTime.toLocaleDateString('ru', { // result this method not like this -> '12 |-F16: Sun-|'. I created custom date map
         //     weekday: "long",

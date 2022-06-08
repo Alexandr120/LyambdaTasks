@@ -10,7 +10,7 @@ bot.onText(/\/start/, (msg) => {
     sendMenuList(msg.chat.id);
 });
 
-bot.on('message', (msg) => {console.log(msg.text);
+bot.on('message', (msg) => {
     if(!commands.hasOwnProperty(`${msg.text}`)){
         bot.sendMessage(msg.chat.id, 'Unrecognized command. Say what?');
         sendMenuList(msg.chat.id);
