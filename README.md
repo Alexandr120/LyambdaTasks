@@ -7,3 +7,7 @@ Open the file tsc.js in the console using node with command message|m "message" 
 There is also a command --help to view command list  
 ## CLI: Telegram Echo
 Open the file tgEcho.js in the console using node.
+##TelegramBot: Weather
+Open the file tgEcho.js in the console using node. Als Telegram bot have menu list and menu button.
+Yuo can select interval for weather interval in the days. Default interval 3 hours. 
+This task location in "Heroku" service.
