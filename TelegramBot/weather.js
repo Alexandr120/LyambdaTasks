@@ -45,8 +45,6 @@ const getWeatherData = async () => {
 
 const weatherMapper = (data) => {
     let arr = new Map([]);
-    console.log(data);
-
     for (let i=0; i<data.length; i++){
         let dateTime = new Date(data[i].dt_txt);
         // let date = dateTime.toLocaleDateString('ru', { // result this method not like this -> '12 |-F16: Sun-|'. I created custom date map
