@@ -1,3 +1,14 @@
 {
-  "/weather_dnipro" : "Погода в Днепре"
+  "/weather_dnipro" : {
+    "title" : "Погода в Днепре",
+    "menuDesc" : "Выберите временной интервал отображения погоды:",
+    "script" : "weather",
+    "target" : "weatherIntervals"
+  },
+  "/exchange_rates" : {
+    "title" : "Курс Валют",
+    "menuDesc" : "Выберите банк:",
+    "script" : "currencies",
+    "target" : "banks"
+  }
 }

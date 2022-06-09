@@ -21,5 +21,7 @@ const sendPhotoToTgBot = (chatId) => {
         if(response.status === 200){
             tg.bot.sendPhoto(chatId, Buffer.from(response.data));
         }
+    }).catch((err) => {
+        console.log(err);
     });
 }

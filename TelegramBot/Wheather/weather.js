@@ -1,7 +1,12 @@
 require('dotenv').config();
 const axios = require('axios').default;
-const weekdays = require('../TelegramBot/weekdays.json');
-const months = require('../TelegramBot/months.json');
+const weekdays = require('./weekdays.json');
+const months = require('./months.json');
+
+const weatherIntervals = {
+    "weather-3" : "C интервалом 3 часа",
+    "weather-6" : "C интервалом 6 часов"
+};
 
 const getWeather = async (hourOption) => {
   let weatherData = await getWeatherData();
@@ -101,4 +106,4 @@ const getCityCoordinates = async () => {
     return coordinates;
 }
 
-module.exports = { getWeather };
+module.exports = { getWeather, weatherIntervals };
